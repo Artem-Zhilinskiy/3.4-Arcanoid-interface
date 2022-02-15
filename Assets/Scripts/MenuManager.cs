@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class MenuManager : MonoBehaviour
 {
     public static string _activeScene;
     public static bool _gameIsPaused = false;
     public GameObject _pauseMenuUI;
+
+    //Объявление делегата для события перезапуска уровня
+    public delegate void RestartLevelDelegate();
+
+    //Объявление события перезапуска уровня
+    public static event RestartLevelDelegate RestartLevelEvent;
     public void NewGame()
     {
         SceneManager.LoadScene("GameScene");
@@ -28,7 +35,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Keyboard.current[Key.Escape].wasPressedThisFrame)
         {
             if (_gameIsPaused)
             {
@@ -53,5 +60,15 @@ public class MenuManager : MonoBehaviour
         _pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         _gameIsPaused = true;
+    }
+
+    //Вызов события в методе
+    public void RestartLevel()
+    {
+        if (RestartLevelEvent != null)
+        {
+            RestartLevelEvent();
+            Resume();
+        }
     }
 }

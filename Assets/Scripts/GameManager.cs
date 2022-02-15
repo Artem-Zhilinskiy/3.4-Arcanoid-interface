@@ -62,6 +62,7 @@ namespace Arcanoid
             RotateObstacles();
             ObstacleEventHandler();
             LifeEventHandler();
+            RestartLevelHandler();
         }
 
         // Update is called once per frame
@@ -149,6 +150,9 @@ namespace Arcanoid
         {
             switch (_currentLevel)
             {
+                case 0: //В случае перезапуска первого уровня
+                    _sphere.GetComponent<SphereControls>().SphereReturn();
+                    break;
                 case 1:
                     //Задание новой стартовой позиции шара
                     SphereControls._sphereStartLocation = SphereControls._sphereStartLocationLevel2;
@@ -207,6 +211,45 @@ namespace Arcanoid
             _gate22.GetComponent<GateControls>().SphereLeftEvent += LifeCounter;
             _gate31.GetComponent<GateControls>().SphereLeftEvent += LifeCounter;
             _gate32.GetComponent<GateControls>().SphereLeftEvent += LifeCounter;
+        }
+
+        //Модуль перезапуска уровня
+        void RestartLevelHandler()
+        {
+            MenuManager.RestartLevelEvent += RestartLevel;
+        }
+
+        void RestartLevel()
+        {
+            //Debug.Log("Перезапуск уровня");
+            ReactivateObstacleInMassive(_currentLevel);
+            _currentLevel--;
+            LevelUp();
+        }
+
+        private void ReactivateObstacle(Transform[] _obstacles)
+        {
+            foreach (var _obstacle in _obstacles)
+            {
+                    _obstacle.gameObject.SetActive(true);
+            }
+        }
+
+        private void ReactivateObstacleInMassive(byte _currentLevel)
+        {
+            //Определение к какому массиву должно принадлежать препятствие
+            switch (_currentLevel)
+            {
+                case 1:
+                    ReactivateObstacle(_obstaclesLevel1);
+                    break;
+                case 2:
+                    ReactivateObstacle(_obstaclesLevel2);
+                    break;
+                case 3:
+                    ReactivateObstacle(_obstaclesLevel3);
+                    break;
+            }
         }
     }
 }
