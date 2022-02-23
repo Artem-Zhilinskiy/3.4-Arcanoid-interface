@@ -50,6 +50,7 @@ public class MenuManager : MonoBehaviour
 
     public void Resume()
     {
+        //Вставить сюда анимацию и флаг
         _pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         _gameIsPaused = false;

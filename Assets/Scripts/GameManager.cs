@@ -152,6 +152,7 @@ namespace Arcanoid
             {
                 case 0: //В случае перезапуска первого уровня
                     _sphere.GetComponent<SphereControls>().SphereReturn();
+                    _currentLevel++;
                     break;
                 case 1:
                     //Задание новой стартовой позиции шара
@@ -221,7 +222,6 @@ namespace Arcanoid
 
         void RestartLevel()
         {
-            //Debug.Log("Перезапуск уровня");
             ReactivateObstacleInMassive(_currentLevel);
             _currentLevel--;
             LevelUp();
