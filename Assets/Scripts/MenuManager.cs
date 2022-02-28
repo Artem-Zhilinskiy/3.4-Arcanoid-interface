@@ -10,6 +10,8 @@ public class MenuManager : MonoBehaviour
     public static bool _gameIsPaused = false;
     public GameObject _pauseMenuUI;
 
+    Coroutine _closeAnimationCoroutine = null;
+
     //Объявление делегата для события перезапуска уровня
     public delegate void RestartLevelDelegate();
 
@@ -51,9 +53,13 @@ public class MenuManager : MonoBehaviour
     public void Resume()
     {
         //Вставить сюда анимацию и флаг
+        ClosePanelAnimation();
+
+        /*
         _pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         _gameIsPaused = false;
+        */
     }
 
     public void Pause()
@@ -70,6 +76,31 @@ public class MenuManager : MonoBehaviour
         {
             RestartLevelEvent();
             Resume();
+        }
+    }
+
+    //метод сворачивания панели
+    private void ClosePanelAnimation ()
+    {
+        var _panel = PanelSearch();
+        //Корутина уменьшения масштаба панели меню
+        _closeAnimationCoroutine = StartCoroutine(CloseAnimationCoroutine(_panel));
+        Debug.Log("ClosePanelAnimation сработал");
+    }
+
+    //метод поиска прикреплённой панели
+    private GameObject PanelSearch()
+    {
+        var _panel = transform.Find("PauseMenu").gameObject;
+        return _panel;
+    }
+
+    private IEnumerator CloseAnimationCoroutine(GameObject _panel)
+    {
+        while (_panel.transform.localScale.x >= 0.01)
+        {
+            _panel.transform.localScale = new Vector3(_panel.transform.localScale.x - 0.01f, _panel.transform.localScale.y - 0.01f, 1);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
     }
 }
