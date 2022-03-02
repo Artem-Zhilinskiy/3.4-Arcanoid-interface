@@ -9,9 +9,11 @@ public class MenuManager : MonoBehaviour
     public static string _activeScene;
     public static bool _gameIsPaused = false;
     public GameObject _pauseMenuUI;
+    public GameObject _preferencesMenuUI;
 
     Coroutine _closeAnimationCoroutine = null;
     Coroutine _openAnimationCoroutine = null;
+    Coroutine _twoCoroutinesCoroutine = null;
 
     //Объявление делегата для события перезапуска уровня
     public delegate void RestartLevelDelegate();
@@ -23,13 +25,13 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
+    /*
     public void Back()
     {
         Debug.Log(_activeScene);
         SceneManager.LoadScene(_activeScene);
     }
 
-    /*
     public void Preferences()
     {
         _activeScene = SceneManager.GetActiveScene().name;
@@ -40,10 +42,20 @@ public class MenuManager : MonoBehaviour
 
     public void Preferences()
     {
-        _activeScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene("PreferencesScene");
-        Debug.Log(_activeScene);
+        var _panel = PanelSearch();
+        _gameIsPaused = true;
+        _preferencesMenuUI.transform.localScale = new Vector3(0.01f, 0.01f, 1);
+        _preferencesMenuUI.SetActive(true);
+        _twoCoroutinesCoroutine = StartCoroutine(TwoCoroutinesCoroutine(_panel, _preferencesMenuUI));
     }
+
+    public void Back()
+    {
+        var _panel = PanelSearch();
+        _panel.SetActive(true);
+        _twoCoroutinesCoroutine = StartCoroutine(TwoCoroutinesCoroutine(_preferencesMenuUI, _panel));
+    }
+
 
     private void Update()
     {
@@ -58,16 +70,17 @@ public class MenuManager : MonoBehaviour
 
     public void Resume()
     {
-
-        ClosePanelAnimation();
+        _gameIsPaused = false;
+        ClosePanelAnimation(_pauseMenuUI);
     }
 
     public void Pause()
     {
+        _gameIsPaused = true;
         _pauseMenuUI.transform.localScale = new Vector3(0.01f, 0.01f, 1);
         _pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
-        OpenPanelAnimation();
+        OpenPanelAnimation(_pauseMenuUI);
     }
 
     //Вызов события в методе
@@ -81,27 +94,32 @@ public class MenuManager : MonoBehaviour
     }
 
     //метод сворачивания панели
-    private void ClosePanelAnimation ()
+    private void ClosePanelAnimation (GameObject _panel)
     {
-        var _panel = PanelSearch();
-        //Корутина уменьшения масштаба панели меню
-        _closeAnimationCoroutine = StartCoroutine(CloseAnimationCoroutine(_panel));
-        Debug.Log("ClosePanelAnimation сработал");
+            _closeAnimationCoroutine = StartCoroutine(CloseAnimationCoroutine(_panel));
+            Debug.Log("ClosePanelAnimation сработал");
     }
 
-    private void OpenPanelAnimation()
+    private void OpenPanelAnimation(GameObject _panel)
     {
-        var _panel = PanelSearch();
-        //Корутина увеличения масштаба панели меню
-        _openAnimationCoroutine = StartCoroutine(OpenAnimationCoroutine(_panel));
-        Debug.Log("OpenPanelAnimation сработал");
+            //Корутина увеличения масштаба панели меню
+            _openAnimationCoroutine = StartCoroutine(OpenAnimationCoroutine(_panel));
+            Debug.Log("OpenPanelAnimation сработал");
     }
 
     //метод поиска прикреплённой панели
     private GameObject PanelSearch()
     {
-        var _panel = transform.Find("PauseMenu").gameObject;
-        return _panel;
+        var _panel = transform.Find("PauseMenuPanel").gameObject;
+        if (_panel != null)
+        {
+            return _panel;
+        }
+        else
+        {
+            _panel = transform.Find("MainMenuPanel").gameObject;
+            return _panel;
+        }
     }
 
     private IEnumerator CloseAnimationCoroutine(GameObject _panel)
@@ -112,7 +130,10 @@ public class MenuManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         _panel.SetActive(false);
-        Time.timeScale = 1f;
+        if (_gameIsPaused == false)
+        {
+            Time.timeScale = 1f;
+        }
         yield break;
     }
 
@@ -123,6 +144,13 @@ public class MenuManager : MonoBehaviour
             _panel.transform.localScale = new Vector3(_panel.transform.localScale.x + 0.01f, _panel.transform.localScale.y + 0.01f, 1);
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
+        yield break;
+    }
+
+    private IEnumerator TwoCoroutinesCoroutine(GameObject _panelToClose, GameObject _panelToOpen)
+    {
+        yield return CloseAnimationCoroutine(_panelToClose);
+        yield return OpenAnimationCoroutine(_panelToOpen);
         yield break;
     }
 }
