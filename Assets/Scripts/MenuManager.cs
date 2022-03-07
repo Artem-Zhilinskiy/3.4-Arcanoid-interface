@@ -108,6 +108,7 @@ public class MenuManager : MonoBehaviour
     }
 
     //метод поиска прикреплённой панели
+    /*
     private GameObject PanelSearch()
     {
         var _panel = transform.Find("PauseMenuPanel").gameObject;
@@ -120,6 +121,23 @@ public class MenuManager : MonoBehaviour
             _panel = transform.Find("MainMenuPanel").gameObject;
             return _panel;
         }
+    }
+    */
+
+    private GameObject PanelSearch()
+    {
+        _activeScene = SceneManager.GetActiveScene().name;
+        if (_activeScene == "GameScene")
+        {
+            var _panel = transform.Find("PauseMenuPanel").gameObject;
+            return _panel;
+        }
+        if (_activeScene == "MenuScene")
+        {
+            var _panel = transform.Find("MainMenuPanel").gameObject;
+            return _panel;
+        }
+        else return null;
     }
 
     private IEnumerator CloseAnimationCoroutine(GameObject _panel)
@@ -152,5 +170,11 @@ public class MenuManager : MonoBehaviour
         yield return CloseAnimationCoroutine(_panelToClose);
         yield return OpenAnimationCoroutine(_panelToOpen);
         yield break;
+    }
+
+    public void StopGame()
+    {
+        UnityEditor.EditorApplication.isPaused = true;
+        Debug.Log("Игра остановлена");
     }
 }
