@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 108396492}
   - component: {fileID: 108396493}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: VolumeSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -357,7 +357,18 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1755971640}
+        m_MethodName: VolumeSlider
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &177489217
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,7 +986,7 @@ RectTransform:
   - {fileID: 2019382491}
   - {fileID: 1315795604}
   m_Father: {fileID: 1448474429}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1024,10 +1035,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2019382492}
   toggleTransition: 1
   graphic: {fileID: 947744745}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 1154177154}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1755971640}
+        m_MethodName: SetDifficultyMedium
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &534082922
 GameObject:
@@ -1060,7 +1082,7 @@ RectTransform:
   - {fileID: 291822003}
   - {fileID: 1846076384}
   m_Father: {fileID: 1448474429}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1109,10 +1131,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 291822004}
   toggleTransition: 1
   graphic: {fileID: 1213190179}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 1154177154}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1755971640}
+        m_MethodName: SetDifficultyHard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &547100586
 GameObject:
@@ -1290,7 +1323,7 @@ GameObject:
   - component: {fileID: 641940607}
   - component: {fileID: 641940608}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: ToggleMute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1362,7 +1395,18 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1755971640}
+        m_MethodName: MuteToggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &796005995
 GameObject:
@@ -1789,6 +1833,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1089066838}
   m_CullTransparentMesh: 0
+--- !u!1 &1154177153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1154177155}
+  - component: {fileID: 1154177154}
+  m_Layer: 0
+  m_Name: DifficultyToggleGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1154177154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154177153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 0
+--- !u!4 &1154177155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154177153}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1448474429}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1199788956
 GameObject:
   m_ObjectHideFlags: 0
@@ -2201,6 +2289,7 @@ RectTransform:
   - {fileID: 1661523390}
   - {fileID: 1089066839}
   - {fileID: 1558172943}
+  - {fileID: 1154177155}
   - {fileID: 1779459075}
   - {fileID: 514313381}
   - {fileID: 534082923}
@@ -2812,6 +2901,7 @@ GameObject:
   - component: {fileID: 1755971636}
   - component: {fileID: 1755971635}
   - component: {fileID: 1755971639}
+  - component: {fileID: 1755971640}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2912,8 +3002,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pauseMenuUI: {fileID: 0}
-  _preferncesMenuUI: {fileID: 1448474428}
-  _mainMenuUI: {fileID: 0}
+  _preferencesMenuUI: {fileID: 1448474428}
+--- !u!114 &1755971640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755971634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fd527e1223c3640b37de4cab5bcc52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _muteToggle: {fileID: 641940608}
+  _volumeSlider: {fileID: 108396493}
+  _easyToggle: {fileID: 1779459076}
+  _mediumToggle: {fileID: 514313382}
+  _hardToggle: {fileID: 534082924}
 --- !u!1 &1779459074
 GameObject:
   m_ObjectHideFlags: 0
@@ -2945,7 +3051,7 @@ RectTransform:
   - {fileID: 1536383715}
   - {fileID: 1542982748}
   m_Father: {fileID: 1448474429}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2994,10 +3100,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1536383716}
   toggleTransition: 1
   graphic: {fileID: 34606810}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 1154177154}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1755971640}
+        m_MethodName: SetDifficultyEasy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1846076383
 GameObject:
