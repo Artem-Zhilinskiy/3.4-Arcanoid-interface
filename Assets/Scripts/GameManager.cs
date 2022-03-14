@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 namespace Arcanoid
 {
@@ -53,6 +55,12 @@ namespace Arcanoid
         public Transform _camera31;
         public Transform _camera32;
 
+        //Текст интерфейса - счётчик жизней
+        [SerializeField]
+        private TextMeshProUGUI _lifeIndicator1;
+        [SerializeField]
+        private TextMeshProUGUI _lifeIndicator2;
+
         //Счётчик текущего уровня
         private byte _currentLevel = 1;
 
@@ -63,6 +71,12 @@ namespace Arcanoid
             ObstacleEventHandler();
             LifeEventHandler();
             RestartLevelHandler();
+        }
+
+        private void Awake()
+        {
+            _lifeIndicator1.text = _lifeCounter.ToString();
+            _lifeIndicator2.text = _lifeCounter.ToString();
         }
 
         // Update is called once per frame
@@ -194,6 +208,8 @@ namespace Arcanoid
             if (_lifeCounter > 0)
             {
                 Debug.Log("Шар упущен. Осталось жизней: " + _lifeCounter);
+                _lifeIndicator1.text = _lifeCounter.ToString();
+                _lifeIndicator2.text = _lifeCounter.ToString();
             }
             else
             {
