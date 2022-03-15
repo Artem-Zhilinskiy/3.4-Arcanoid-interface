@@ -32,6 +32,9 @@ namespace Arcanoid
         //Объявление события
         public event DesactivateObstacleDelegate DesactivateObstacleEvent;
 
+        //Флаг действия корутины движения шара
+        private bool _sphereIsMoving = false;
+
         //2. Второе, что нужно сделать - инициализировать controls в Awake
         private void Awake()
         {
@@ -56,7 +59,12 @@ namespace Arcanoid
 
         public void OnLaunch(CallbackContext context)
         {
-            _moveSphereCoroutine = StartCoroutine(MoveForward());
+            //Проверка для избежания повторных запусков
+            if (_sphereIsMoving == false)
+            {
+                _sphereIsMoving = true;
+                _moveSphereCoroutine = StartCoroutine(MoveForward());
+            }
         }
 
         // Start is called before the first frame update
@@ -111,6 +119,7 @@ namespace Arcanoid
             transform.position = _sphereStartLocation;
             transform.rotation = _sphereStartRotation;
             StopCoroutine(_moveSphereCoroutine);
+            _sphereIsMoving = false;
             Debug.Log("возврат шара");
         }
 

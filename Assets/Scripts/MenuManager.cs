@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -20,6 +21,29 @@ public class MenuManager : MonoBehaviour
 
     //Объявление события перезапуска уровня
     public static event RestartLevelDelegate RestartLevelEvent;
+
+    [Header("Кнопки главного меню")]
+    [SerializeField]
+    private Button _newGameButtonMain;
+    [SerializeField]
+    private Button _preferencesButtonMain;
+    [SerializeField]
+    private Button _exitButtonMain;
+
+    [Header("Кнопки меню настроек")]
+    [SerializeField]
+    private Button _backButton;
+
+    [Header("Кнопки меню-паузы")]
+    [SerializeField]
+    private Button _resumeButton;
+    [SerializeField]
+    private Button _restartButton;
+    [SerializeField]
+    private Button _preferencesButton;
+    [SerializeField]
+    private Button _exitButton;
+
     public void NewGame()
     {
         SceneManager.LoadScene("GameScene");
@@ -40,6 +64,7 @@ public class MenuManager : MonoBehaviour
     }
     */
 
+    //Открытие меню настроек
     public void Preferences()
     {
         var _panel = PanelSearch();
@@ -49,6 +74,7 @@ public class MenuManager : MonoBehaviour
         _twoCoroutinesCoroutine = StartCoroutine(TwoCoroutinesCoroutine(_panel, _preferencesMenuUI));
     }
 
+    //Кнопка "назад" меню настроек
     public void Back()
     {
         var _panel = PanelSearch();
@@ -68,12 +94,14 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    //Кнопка "продолжить" меню-паузы
     public void Resume()
     {
         _gameIsPaused = false;
         ClosePanelAnimation(_pauseMenuUI);
     }
 
+    //Открытие меню-паузы на кнопку Escape
     public void Pause()
     {
         _gameIsPaused = true;
@@ -94,35 +122,18 @@ public class MenuManager : MonoBehaviour
     }
 
     //метод сворачивания панели
-    private void ClosePanelAnimation (GameObject _panel)
+    private void ClosePanelAnimation(GameObject _panel)
     {
-            _closeAnimationCoroutine = StartCoroutine(CloseAnimationCoroutine(_panel));
-            Debug.Log("ClosePanelAnimation сработал");
+        _closeAnimationCoroutine = StartCoroutine(CloseAnimationCoroutine(_panel));
+        //Debug.Log("ClosePanelAnimation сработал");
     }
 
     private void OpenPanelAnimation(GameObject _panel)
     {
-            //Корутина увеличения масштаба панели меню
-            _openAnimationCoroutine = StartCoroutine(OpenAnimationCoroutine(_panel));
-            Debug.Log("OpenPanelAnimation сработал");
+        //Корутина увеличения масштаба панели меню
+        _openAnimationCoroutine = StartCoroutine(OpenAnimationCoroutine(_panel));
+        //Debug.Log("OpenPanelAnimation сработал");
     }
-
-    //метод поиска прикреплённой панели
-    /*
-    private GameObject PanelSearch()
-    {
-        var _panel = transform.Find("PauseMenuPanel").gameObject;
-        if (_panel != null)
-        {
-            return _panel;
-        }
-        else
-        {
-            _panel = transform.Find("MainMenuPanel").gameObject;
-            return _panel;
-        }
-    }
-    */
 
     private GameObject PanelSearch()
     {
@@ -162,6 +173,7 @@ public class MenuManager : MonoBehaviour
             _panel.transform.localScale = new Vector3(_panel.transform.localScale.x + 0.01f, _panel.transform.localScale.y + 0.01f, 1);
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
+        AllButtonsTurnOn();
         yield break;
     }
 
@@ -177,4 +189,93 @@ public class MenuManager : MonoBehaviour
         UnityEditor.EditorApplication.isPaused = true;
         Debug.Log("Игра остановлена");
     }
+
+    #region "включение и отключение кнопок"
+    //Метод отключения кнопок главного меню
+    private void UnButtonMainMenu()
+    {
+        _newGameButtonMain.interactable = false;
+        _preferencesButtonMain.interactable = false;
+        _exitButtonMain.interactable = false;
+    }
+
+    //Метод включения кнопок главного меню
+    private void ButtonMainMenu()
+    {
+        _newGameButtonMain.interactable = true;
+        _preferencesButtonMain.interactable = true;
+        _exitButtonMain.interactable = true;
+    }
+
+    //Метод отключения кнопок меню настроек
+    private void UnButtonPreferencesMenu()
+    {
+        _backButton.interactable = false;
+    }
+
+    //Метод включения кнопки меню настроек
+    private void ButtonPreferencesMenu()
+    {
+        _backButton.interactable = true;
+    }
+
+    //Метод отключения кнопок меню паузы
+    private void UnButtonPauseMenu()
+    {
+        _resumeButton.interactable = false;
+        _restartButton.interactable = false;
+        _preferencesButton.interactable = false;
+        _exitButton.interactable = false;
+    }
+
+    //Метод включения кнопок меню
+    private void ButtonPauseMenu()
+    {
+        _resumeButton.interactable = true;
+        _restartButton.interactable = true;
+        _preferencesButton.interactable = true;
+        _exitButton.interactable = true;
+    }
+
+    //Методы включения и отключения всех кнопок
+    private void AllButtonsTurnOn()
+    {
+        ButtonCheckTurnOn(_newGameButtonMain);
+        ButtonCheckTurnOn(_preferencesButtonMain);
+        ButtonCheckTurnOn(_exitButtonMain);
+        ButtonCheckTurnOn(_backButton);
+        ButtonCheckTurnOn(_resumeButton);
+        ButtonCheckTurnOn(_preferencesButton);
+        ButtonCheckTurnOn(_restartButton);
+        ButtonCheckTurnOn(_exitButton);
+    }
+
+    public void AllButtonsTurnOff()
+    {
+        ButtonCheckTurnOff(_newGameButtonMain);
+        ButtonCheckTurnOff(_preferencesButtonMain);
+        ButtonCheckTurnOff(_exitButtonMain);
+        ButtonCheckTurnOff(_backButton);
+        ButtonCheckTurnOff(_resumeButton);
+        ButtonCheckTurnOff(_preferencesButton);
+        ButtonCheckTurnOff(_restartButton);
+        ButtonCheckTurnOff(_exitButton);
+    }
+
+    //Метод проверки, существует ли кнопка
+    private void ButtonCheckTurnOn(Button _button)
+    {
+        if (_button != null)
+        {
+            _button.interactable = true;
+        }
+    }
+    private void ButtonCheckTurnOff(Button _button)
+    {
+        if (_button != null)
+        {
+            _button.interactable = false;
+        }
+    }
+    #endregion
 }

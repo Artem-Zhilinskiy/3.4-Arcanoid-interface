@@ -1059,6 +1059,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2047780175}
+        m_MethodName: AllButtonsTurnOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &536879742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3853,6 +3864,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2047780175}
+        m_MethodName: AllButtonsTurnOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1619599953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4660,6 +4682,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseMenuUI: {fileID: 0}
   _preferencesMenuUI: {fileID: 1566767763}
+  _newGameButtonMain: {fileID: 1529626568}
+  _preferencesButtonMain: {fileID: 1619599952}
+  _exitButtonMain: {fileID: 967368966}
+  _backButton: {fileID: 536879741}
+  _resumeButton: {fileID: 0}
+  _restartButton: {fileID: 0}
+  _preferencesButton: {fileID: 0}
+  _exitButton: {fileID: 0}
 --- !u!114 &2047780176
 MonoBehaviour:
   m_ObjectHideFlags: 0

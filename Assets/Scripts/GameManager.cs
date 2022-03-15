@@ -77,6 +77,7 @@ namespace Arcanoid
         {
             _lifeIndicator1.text = _lifeCounter.ToString();
             _lifeIndicator2.text = _lifeCounter.ToString();
+            //Display.displays[2].Activate();
         }
 
         // Update is called once per frame
