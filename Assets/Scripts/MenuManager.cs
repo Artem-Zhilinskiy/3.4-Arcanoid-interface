@@ -186,7 +186,7 @@ public class MenuManager : MonoBehaviour
 
     public void StopGame()
     {
-        UnityEditor.EditorApplication.isPaused = true;
+        //UnityEditor.EditorApplication.isPaused = true;
         Debug.Log("Игра остановлена");
     }
 

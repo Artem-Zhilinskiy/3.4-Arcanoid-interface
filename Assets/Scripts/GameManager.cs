@@ -157,7 +157,7 @@ namespace Arcanoid
             else 
             {
                 Debug.Log("Вы победили!");
-                UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
             }
         }
 
@@ -215,7 +215,7 @@ namespace Arcanoid
             else
             {
                 Debug.Log("Шар упущен. Осталось жизней:" + _lifeCounter + " Игра окончена.");
-                UnityEditor.EditorApplication.isPaused = true;
+                //UnityEditor.EditorApplication.isPaused = true;
             }
             //Возврат и остановка шара
             _sphere.GetComponent<SphereControls>().SphereReturn();
